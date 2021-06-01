@@ -1,13 +1,14 @@
 import {
   FlatList,
   Image,
+  LogBox,
   StatusBar,
   Text,
   TouchableHighlight,
   View,
 } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 
 import AllStyle from '../../AllStyle'
 import HeaderButton from '../../component/headerbutton/HeaderButton'
@@ -22,17 +23,17 @@ import SearchBarsExpandable from '../../component/searchComponent/SearchBarsExpa
 import SegmentedControlTab from 'react-native-segmented-control-tab'
 
 const PropertiesCategory = (props) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedindex, setTabselect] = useState(0);
+  LogBox.ignoreLogs(['Your project is accessing'])
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [selectedindex, setTabselect] = useState(0)
 
   const handleSingleIndexSelect = (index) => {
     setSelectedIndex(index)
- 
-  };
+  }
   const handleTabInner = (indexe) => {
     setTabselect(indexe)
-  };
-   return (
+  }
+  return (
     <ScrollView>
       <View style={{ flex: 1 }}>
         <View style={{ flex: 2, alignSelf: 'stretch' }}>
@@ -41,48 +42,50 @@ const PropertiesCategory = (props) => {
         <View style={AllStyle.container}>
           {/* Simple Segmented Control*/}
           <Text style={AllStyle.headerText}>Properties For</Text>
-        
+
           <SegmentedControlTab
             values={['Sale', 'Rent']}
             selectedIndex={selectedIndex}
             tabStyle={AllStyle.tabStyleinner}
             activeTabStyle={AllStyle.activeTabStyleinner}
             // onTabPress={index => setSelectedIndex({ selectedIndex: index })}
-           onTabPress={handleSingleIndexSelect}
+            onTabPress={handleSingleIndexSelect}
             tabsContainerStyle={{
               height: 40,
               marginTop: 0,
               marginBottom: 10,
             }}
           />
-           
+
           {/* <View style={AllStyle.seperator} /> */}
 
-         {selectedIndex === 0 &&
-        <PropertiesBuyList 
-        onSelect={()=>{
-          props.navigation.navigate({routeName: 'Property_Detail_Sale'})}}
-          />
-       
-         }
+          {selectedIndex === 0 && (
+            <PropertiesBuyList
+              onSelect={() => {
+                props.navigation.navigate({ routeName: 'Property_Detail_Sale' })
+              }}
+            />
+          )}
 
-        {selectedIndex === 1 &&
-        <PropertiesRentList  
-        onSelect={()=>{
-          props.navigation.navigate({routeName: 'Property_Detail_Rent'})}}
-          />
-          }
+          {selectedIndex === 1 && (
+            <PropertiesRentList
+              onSelect={() => {
+                props.navigation.navigate({ routeName: 'Property_Detail_Rent' })
+              }}
+            />
+          )}
 
           <View style={AllStyle.seperator} />
         </View>
 
-          <View style={{flex:1.3}}>
+        <View style={{ flex: 1.3 }}>
           <PropertyForSale
-                      onSelect={()=>{
-                        props.navigation.navigate({routeName: 'Property_Detail_Sale'})}}
-           />
-          </View>
-   <View style={{flex:1.3}}>
+            onSelect={() => {
+              props.navigation.navigate({ routeName: 'Property_Detail_Sale' })
+            }}
+          />
+        </View>
+        <View style={{ flex: 1.3 }}>
           <PropertyForRents
             onSelect={() => {
               props.navigation.navigate({ routeName: 'Property_Detail_Rent' })
@@ -91,16 +94,17 @@ const PropertiesCategory = (props) => {
         </View>
 
         <View style={{ flex: 1.3 }}>
-          <NewProjects 
-                      onSelectDubai={() => {
-                        props.navigation.navigate({ routeName: 'AbuDahbi_Properties' })
-                      }}
-                      onSelectTurkey={() => {
-                        props.navigation.navigate({ routeName: 'Dubai_Properties' })
-                      }}
-                      onSelectPak={() => {
-                        props.navigation.navigate({ routeName: 'Sharjah_Properties' })
-                      }}/>
+          <NewProjects
+            onSelectDubai={() => {
+              props.navigation.navigate({ routeName: 'AbuDahbi_Properties' })
+            }}
+            onSelectTurkey={() => {
+              props.navigation.navigate({ routeName: 'Dubai_Properties' })
+            }}
+            onSelectPak={() => {
+              props.navigation.navigate({ routeName: 'Sharjah_Properties' })
+            }}
+          />
         </View>
       </View>
     </ScrollView>
@@ -109,35 +113,34 @@ const PropertiesCategory = (props) => {
 
 PropertiesCategory.navigationOptions = (navData) => {
   return {
-    headerTitle: () => <HeaderLogo/>,
+    headerTitle: () => <HeaderLogo />,
 
-headerRight: () => (
-  <HeaderButtons HeaderButtonComponent={HeaderButton}>
-    <Item
-      iconName='person'
-      onPress={() => {
-        navData.navigation.navigate('Login_Screen')
-        // Share.share({
-        //   title: 'Paradisegoc App',
-        //   message:  'https://reactnative.dev/docs/share'  + '\nHy! Happy to see you!'
-        // }).then((res) => console.log(res))
-        //   .catch((error) => console.log(error))
-      }}
-    />
-  </HeaderButtons>
-),
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          iconName='person'
+          onPress={() => {
+            navData.navigation.navigate('Login_Screen')
+            // Share.share({
+            //   title: 'Paradisegoc App',
+            //   message:  'https://reactnative.dev/docs/share'  + '\nHy! Happy to see you!'
+            // }).then((res) => console.log(res))
+            //   .catch((error) => console.log(error))
+          }}
+        />
+      </HeaderButtons>
+    ),
 
-      headerLeft:() => (
-        <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
           iconName='ios-menu'
           onPress={() => {
             navData.navigation.toggleDrawer()
           }}
-          />
-        </HeaderButtons>
-      ),
-
+        />
+      </HeaderButtons>
+    ),
   }
 }
 
